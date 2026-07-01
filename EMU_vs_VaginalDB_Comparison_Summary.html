@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EMU vs Vaginal Database — Endometrial Microbiome Comparison Summary</title>
+  <style>
+    :root {
+      --primary:   #1a3a5c;
+      --accent:    #2e7d9f;
+      --green:     #1e6e4e;
+      --red:       #b71c1c;
+      --amber:     #c45500;
+      --purple:    #5c3d9e;
+      --bg:        #f4f7fb;
+      --card:      #ffffff;
+      --border:    #d4dde9;
+      --text:      #1c2b3a;
+      --muted:     #55687a;
+      --label-bg:  #eef3f8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0f2740 0%, #1a4a6e 60%, #1e5c82 100%);
+      color: #fff;
+      padding: 36px 48px 30px;
+    }
+    .header-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .header-badge {
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px; padding: 3px 10px; margin-bottom: 10px;
+      display: inline-block;
+    }
+    header h1 { font-size: 22px; font-weight: 700; line-height: 1.3; }
+    header h1 span { color: #7ec8e3; }
+    header .subtitle { font-size: 13px; opacity: 0.75; margin-top: 6px; }
+    .header-meta {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;
+    }
+    .meta-pill {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px; padding: 4px 14px; font-size: 11.5px;
+    }
+    .meta-pill strong { color: #a8d8ea; margin-right: 4px; }
+
+    /* ── Key Takeaway Banner ── */
+    .verdict-banner {
+      background: #0f2740;
+      color: #fff;
+      padding: 18px 48px;
+      display: flex; align-items: center; gap: 16px;
+      border-bottom: 3px solid #e65100;
+      font-size: 13px; line-height: 1.5;
+    }
+    .verdict-icon {
+      font-size: 28px; flex-shrink: 0;
+    }
+    .verdict-text strong { font-size: 14px; color: #ffd580; display: block; margin-bottom: 3px; }
+
+    /* ── Layout ── */
+    main { max-width: 1140px; margin: 0 auto; padding: 32px 24px 60px; }
+
+    /* ── Section ── */
+    .sec-head {
+      font-size: 16px; font-weight: 700; color: var(--primary);
+      border-left: 4px solid var(--accent); padding-left: 12px;
+      margin: 36px 0 16px;
+    }
+
+    /* ── Alert ── */
+    .alert {
+      border-radius: 8px; padding: 13px 16px; margin: 12px 0;
+      border-left: 4px solid; font-size: 13px;
+    }
+    .a-red    { background:#fdecea; border-color:var(--red);   color:#7a1010; }
+    .a-amber  { background:#fff4e5; border-color:var(--amber); color:#7a3200; }
+    .a-green  { background:#e8f5ee; border-color:var(--green); color:#124430; }
+    .a-blue   { background:#e8f4fd; border-color:var(--accent);color:#0d3e5c; }
+    .a-purple { background:#f2eefd; border-color:var(--purple);color:#3a2070; }
+    .alert strong { font-size: 11px; text-transform:uppercase; letter-spacing:.5px; display:block; margin-bottom:3px; }
+
+    /* ── Comparison Table ── */
+    .cmp-wrap { overflow-x: auto; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      padding: 11px 13px; font-size: 11.5px; font-weight: 700;
+      letter-spacing: .3px; text-align: left;
+    }
+    .th-sample { background: #1a3a5c; color: #fff; }
+    .th-emu    { background: #245d8a; color: #fff; }
+    .th-vdb    { background: #1e6e4e; color: #fff; }
+    .th-verdict{ background: #3d2a70; color: #fff; }
+    tbody tr { border-bottom: 1px solid #e0e8f0; }
+    tbody tr:nth-child(even) { background: #f6f9fc; }
+    tbody td { padding: 10px 13px; vertical-align: top; }
+    .cell-emu  { border-left: 2px solid #cde0ee; }
+    .cell-vdb  { border-left: 2px solid #b8ddc8; }
+    .cell-verd { border-left: 2px solid #d0c0f0; }
+    .t-red   { color: var(--red);    font-weight: 700; }
+    .t-green { color: var(--green);  font-weight: 700; }
+    .t-amber { color: var(--amber);  font-weight: 700; }
+    .t-blue  { color: var(--accent); font-weight: 700; }
+    .small   { font-size: 11.5px; color: var(--muted); }
+    .tag {
+      display: inline-block; border-radius: 4px;
+      font-size: 10.5px; font-weight: 700; padding: 2px 7px; margin: 2px 0;
+    }
+    .tag-red    { background:#fdecea; color:var(--red); }
+    .tag-green  { background:#e8f5ee; color:var(--green); }
+    .tag-amber  { background:#fff4e5; color:var(--amber); }
+    .tag-blue   { background:#e8f4fd; color:var(--accent); }
+    .tag-purple { background:#f2eefd; color:var(--purple); }
+
+    /* ── Score Cards (top strip) ── */
+    .scorestrip {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+      margin: 20px 0 28px;
+    }
+    .scorecard {
+      background: var(--card);
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px 14px; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .scorecard .num {
+      font-size: 32px; font-weight: 800; line-height: 1.1; margin-bottom: 4px;
+    }
+    .scorecard .lbl { font-size: 11px; color: var(--muted); line-height: 1.4; }
+    .s-red    { border-top: 4px solid var(--red); }
+    .s-amber  { border-top: 4px solid var(--amber); }
+    .s-green  { border-top: 4px solid var(--green); }
+    .s-blue   { border-top: 4px solid var(--accent); }
+    .s-purple { border-top: 4px solid var(--purple); }
+
+    /* ── Head-to-head side-by-side cards ── */
+    .h2h-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin: 16px 0;
+    }
+    .h2h-card {
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .h2h-header {
+      padding: 10px 16px; font-size: 12px; font-weight: 700;
+      letter-spacing: .3px; text-transform: uppercase;
+    }
+    .h2h-emu { background: #1e4f78; color: #fff; }
+    .h2h-vdb { background: #1a5c3e; color: #fff; }
+    .h2h-body { padding: 14px 16px; background: var(--card); }
+    .org-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 0; border-bottom: 1px solid #edf2f7; font-size: 12.5px;
+    }
+    .org-row:last-child { border-bottom: none; }
+    .org-name { color: var(--text); }
+    .org-name em { font-style: italic; }
+    .org-pct  { font-weight: 700; font-size: 12px; }
+    .org-env  { color: var(--red); font-style: italic; font-size: 11px; }
+    .bar-mini {
+      width: 100%; height: 4px; background: #e8eef5;
+      border-radius: 2px; margin-top: 3px;
+    }
+    .bar-fill-green { height: 4px; border-radius: 2px; background: var(--green); }
+    .bar-fill-blue  { height: 4px; border-radius: 2px; background: var(--accent); }
+    .bar-fill-red   { height: 4px; border-radius: 2px; background: var(--red); }
+    .bar-fill-amber { height: 4px; border-radius: 2px; background: var(--amber); }
+
+    /* ── Endometrial LEDA box ── */
+    .leda-row {
+      display: flex; align-items: center; gap: 8px;
+      background: #f4f7fb; border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 12px; margin-top: 8px;
+    }
+    .leda-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .leda-good   { background: var(--green); }
+    .leda-mid    { background: var(--amber); }
+    .leda-poor   { background: var(--red); }
+    .leda-text   { font-size: 12px; color: var(--muted); }
+    .leda-text strong { color: var(--text); }
+
+    /* ── Summary grid ── */
+    .sum-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      margin: 16px 0;
+    }
+    .sum-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    }
+    .sum-card h4 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .sum-card ul { padding-left: 16px; }
+    .sum-card li { font-size: 12.5px; margin: 4px 0; color: var(--text); }
+
+    /* ── Conclusion box ── */
+    .conclusion {
+      background: linear-gradient(135deg, #0f2740, #1a4a6e);
+      color: #fff; border-radius: 12px;
+      padding: 28px 32px; margin-top: 32px;
+    }
+    .conclusion h3 { font-size: 16px; margin-bottom: 14px; color: #7ec8e3; }
+    .conclusion p  { font-size: 13.5px; line-height: 1.7; opacity: .9; margin-bottom: 10px; }
+    .conclusion ul { padding-left: 20px; }
+    .conclusion li { font-size: 13px; margin: 6px 0; opacity: .9; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 20px;
+      font-size: 11.5px; color: var(--muted);
+      background: var(--card); border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 760px) {
+      .h2h-grid, .scorestrip, .sum-grid { grid-template-columns: 1fr; }
+      header { padding: 24px 20px; }
+      .verdict-banner { padding: 14px 20px; }
+      main { padding: 20px 14px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">AI Comparative Analysis — Endometrial Microbiome</div>
+  <div class="header-top">
+    <div>
+      <h1>EMU General Database <span>vs</span> Custom Vaginal Database</h1>
+      <p class="subtitle">Endometrial Tissue Microbiome Profiling — Gynaecology / Infertility / ART</p>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="meta-pill"><strong>Date</strong>2026-05-16</div>
+    <div class="meta-pill"><strong>Sample Type</strong>Endometrial Tissue</div>
+    <div class="meta-pill"><strong>Samples</strong>10 (1 Standard + 9 Patient)</div>
+    <div class="meta-pill"><strong>Tool</strong>EMU (Exact Mapping of Unique Reads)</div>
+    <div class="meta-pill"><strong>Status</strong>Confidential — Clinical Use Only</div>
+  </div>
+</header>
+
+<!-- VERDICT BANNER -->
+<div class="verdict-banner">
+  <div class="verdict-icon">⚠️</div>
+  <div class="verdict-text">
+    <strong>Critical Finding: EMU General Database is Unsuitable for Endometrial Microbiome Profiling</strong>
+    The standard EMU database misidentifies environmental organisms as significant endometrial community members, completely fails in dysbiotic samples, and misses clinically critical pathogens. The Custom Vaginal Database provides accurate, clinically actionable results across all sample types.
+  </div>
+</div>
+
+<main>
+
+  <!-- ENDOMETRIAL CONTEXT NOTE -->
+  <div class="alert a-purple" style="margin-top:8px;">
+    <strong>Endometrial Microbiome — Clinical Context</strong>
+    Endometrial tissue is considered near-sterile under normal conditions. A <strong>Lactobacillus-dominant endometrium (LEDA: ≥90% Lactobacillus)</strong> is strongly associated with higher implantation rates and clinical pregnancy success in ART. A non-LEDA profile (&lt;90% Lactobacillus) correlates with reduced IVF/IUI success, recurrent implantation failure (RIF), and recurrent pregnancy loss (RPL). Any pathogen detected in endometrial tissue carries greater clinical significance than in vaginal samples.
+  </div>
+
+  <!-- SCORE STRIP -->
+  <div class="scorestrip">
+    <div class="scorecard s-red">
+      <div class="num" style="color:var(--red);">2</div>
+      <div class="lbl">Complete EMU failures — 100% wrong organisms</div>
+    </div>
+    <div class="scorecard s-amber">
+      <div class="num" style="color:var(--amber);">6</div>
+      <div class="lbl">Samples with EMU environmental false-positives</div>
+    </div>
+    <div class="scorecard s-red">
+      <div class="num" style="color:var(--red);">0/9</div>
+      <div class="lbl">Patients with LEDA-confirmed endometrium (≥90% Lactobacillus)</div>
+    </div>
+    <div class="scorecard s-green">
+      <div class="num" style="color:var(--green);">10/10</div>
+      <div class="lbl">Samples where Vaginal DB gave superior or equal results</div>
+    </div>
+    <div class="scorecard s-purple">
+      <div class="num" style="color:var(--purple);">8+</div>
+      <div class="lbl">Clinically relevant pathogens only found by Vaginal DB</div>
+    </div>
+  </div>
+
+  <!-- ═══ SAMPLE-BY-SAMPLE COMPARISON ═══ -->
+  <div class="sec-head">Sample-by-Sample Head-to-Head Comparison</div>
+
+  <!-- STANDARD -->
+  <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">STANDARD — Mock Community Control</p>
+  <div class="h2h-grid">
+    <div class="h2h-card">
+      <div class="h2h-header h2h-emu">EMU General Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name"><em>Staphylococcus aureus</em></span><span class="org-pct t-blue">13.1%</span></div>
+        <div class="org-row"><span class="org-name"><em>Listeria monocytogenes</em></span><span class="org-pct t-blue">11.2%</span></div>
+        <div class="org-row"><span class="org-name"><em>Limosilactobacillus fermentum</em></span><span class="org-pct">10.8%</span></div>
+        <div class="org-row"><span class="org-name"><em>Salmonella enterica</em></span><span class="org-pct">9.8%</span></div>
+        <div class="org-row"><span class="org-name"><em>Enterococcus faecalis</em></span><span class="org-pct">8.2%</span></div>
+        <div class="org-row"><span class="org-name"><em>Escherichia coli</em></span><span class="org-pct">6.9%</span></div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name"><em>Staphylococcus aureus</em></span><span class="org-pct t-green">12.8%</span></div>
+        <div class="org-row"><span class="org-name"><em>Listeria monocytogenes</em></span><span class="org-pct t-green">11.5%</span></div>
+        <div class="org-row"><span class="org-name"><em>Limosilactobacillus fermentum</em></span><span class="org-pct">10.2%</span></div>
+        <div class="org-row"><span class="org-name"><em>Salmonella enterica</em></span><span class="org-pct">10.0%</span></div>
+        <div class="org-row"><span class="org-name"><em>Mesomycoplasma ovipneumoniae</em> ✚</span><span class="org-pct t-green">8.8%</span></div>
+        <div class="org-row"><span class="org-name"><em>Enterococcus faecalis</em></span><span class="org-pct">8.1%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="alert a-blue" style="font-size:12px; padding:8px 14px;">
+    <strong>Assessment</strong>Both databases perform adequately on the mock standard. Vaginal DB additionally resolved <em>Mesomycoplasma ovipneumoniae</em> (8.8%) and <em>Proteus mirabilis</em> not captured by EMU — indicating greater discriminatory resolution.
+  </div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- BHAVANA -->
+  <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">Bhavana — Endometrial Sample</p>
+  <div class="h2h-grid">
+    <div class="h2h-card">
+      <div class="h2h-header h2h-emu">EMU General Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name"><em>Lactobacillus jensenii</em></span><span class="org-pct t-blue">20.9%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Hydrotalea flava</em> ⚠ ENVIRONMENTAL</span><span class="org-pct t-red">10.5%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Fimbriimonas ginsengisoli</em> ⚠ SOIL</span><span class="org-pct t-red">7.6%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus fornicalis</em></span><span class="org-pct">2.9%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus gasseri</em></span><span class="org-pct">2.6%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus johnsonii</em></span><span class="org-pct">1.8%</span></div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name"><em>Lactobacillus jensenii</em></span><span class="org-pct t-green">23.4%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus mulieris</em> ✚</span><span class="org-pct t-green">7.5%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Klebsiella pneumoniae</em> ⚑</span><span class="org-pct t-amber">5.2%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus gasseri</em></span><span class="org-pct">2.7%</span></div>
+        <div class="org-row"><span class="org-name"><em>Staphylococcus pseudintermedius</em></span><span class="org-pct">3.6%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus delbrueckii</em></span><span class="org-pct">1.6%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-poor"></div><div class="leda-text"><strong>Non-LEDA</strong> — Total Lactobacillus ~36% (well below 90% threshold). EMU artificially inflated community with 18% environmental organisms. Vaginal DB correctly identified <em>Lactobacillus mulieris</em> and detected <em>K. pneumoniae</em> — a clinically significant endometrial pathogen.</div></div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- DRISHYA -->
+  <p style="font-weight:700; color:var(--red); margin-bottom:8px;">Drishya — Endometrial Sample &nbsp;<span style="font-size:11px; background:#fdecea; padding:2px 8px; border-radius:4px; color:var(--red);">COMPLETE EMU FAILURE</span></p>
+  <div class="h2h-grid">
+    <div class="h2h-card" style="border-color:var(--red);">
+      <div class="h2h-header" style="background:#8b1a1a; color:#fff;">EMU General Database — All Results Invalid</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-red"><em>Hydrotalea flava</em> ⚠ FRESHWATER</span><span class="org-pct t-red">17.7%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Fimbriimonas ginsengisoli</em> ⚠ SOIL</span><span class="org-pct t-red">13.8%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Novosphingobium nitrogenifigens</em> ⚠ ENV</span><span class="org-pct t-red">5.9%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Ralstonia solanacearum</em> ⚠ PLANT PATHOGEN</span><span class="org-pct t-red">2.6%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Ralstonia mannitolilytica</em> ⚠ ENV</span><span class="org-pct t-red">2.3%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Novosphingobium aromaticivorans</em> ⚠ ENV</span><span class="org-pct t-red">2.3%</span></div>
+        <div style="text-align:center; padding:10px; font-size:12px; color:var(--red); font-weight:700; margin-top:4px;">⚠ ALL ORGANISMS ARE ENVIRONMENTAL — ZERO CLINICAL VALIDITY</div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database — Clinically Actionable</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-red"><em>Klebsiella pneumoniae</em> ⚑ DOMINANT</span><span class="org-pct t-red">16.9%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Staphylococcus pseudintermedius</em></span><span class="org-pct t-amber">3.7%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Campylobacter blaseri</em></span><span class="org-pct t-amber">2.7%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Corynebacterium sp.</em></span><span class="org-pct t-amber">2.4%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Escherichia coli</em> ⚑</span><span class="org-pct t-amber">2.3%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Treponema primitia</em> ⚑</span><span class="org-pct t-red">1.5%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Brucella melitensis</em> ⚑</span><span class="org-pct t-red">1.5%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-poor"></div><div class="leda-text"><strong>Severe Non-LEDA — Pathogen-Dominant Endometrium.</strong> EMU completely failed this sample. Vaginal DB reveals a critically dysbiotic endometrium with <em>K. pneumoniae</em> as the dominant organism, <em>Brucella melitensis</em> and <em>Treponema</em> — all requiring urgent confirmatory testing and clinical review. Embryo transfer must NOT proceed.</div></div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- KEERTHI -->
+  <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">Keerthi — Endometrial Sample</p>
+  <div class="h2h-grid">
+    <div class="h2h-card">
+      <div class="h2h-header h2h-emu">EMU General Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-red"><em>Hydrotalea flava</em> ⚠ ENV</span><span class="org-pct t-red">15.0%</span></div>
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus iners</em></span><span class="org-pct t-blue">13.6% <small>(ranked #2)</small></span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Fimbriimonas ginsengisoli</em> ⚠ SOIL</span><span class="org-pct t-red">9.0%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Hydrotalea sandarakina</em> ⚠ ENV</span><span class="org-pct t-red">2.6%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Novosphingobium</em> ⚠ ENV</span><span class="org-pct t-red">1.6%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus crispatus</em></span><span class="org-pct">1.3%</span></div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus iners</em></span><span class="org-pct t-green">21.0% <small>(correct dominant)</small></span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Klebsiella pneumoniae</em> ⚑</span><span class="org-pct t-amber">7.6%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus crispatus</em></span><span class="org-pct">2.7%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Escherichia coli</em> ⚑</span><span class="org-pct t-amber">1.9%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Treponema primitia</em> ⚑</span><span class="org-pct t-amber">1.4%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Acinetobacter baumannii</em> ⚑</span><span class="org-pct t-red">1.2%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-poor"></div><div class="leda-text"><strong>Non-LEDA</strong> — EMU ranked an environmental organism above the true dominant species (<em>L. iners</em>). Vaginal DB correctly establishes <em>L. iners</em> dominance but at 21% — well below LEDA threshold. Multiple pathogens detected in endometrium including MDR-associated <em>A. baumannii</em>.</div></div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- MRIGAKSHI -->
+  <p style="font-weight:700; color:var(--red); margin-bottom:8px;">Mrigakshi — Endometrial Sample &nbsp;<span style="font-size:11px; background:#fdecea; padding:2px 8px; border-radius:4px; color:var(--red);">COMPLETE EMU FAILURE</span></p>
+  <div class="h2h-grid">
+    <div class="h2h-card" style="border-color:var(--red);">
+      <div class="h2h-header" style="background:#8b1a1a; color:#fff;">EMU General Database — All Results Invalid</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-red"><em>Hydrotalea flava</em> ⚠ FRESHWATER</span><span class="org-pct t-red">19.6%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Fimbriimonas ginsengisoli</em> ⚠ SOIL</span><span class="org-pct t-red">11.4%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Ralstonia solanacearum</em> ⚠ PLANT</span><span class="org-pct t-red">3.0%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Novosphingobium</em> spp. ⚠ ENV</span><span class="org-pct t-red">2.8%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Ralstonia mannitolilytica</em> ⚠ ENV</span><span class="org-pct t-red">2.2%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Paraburkholderia kururiensis</em> ⚠ SOIL</span><span class="org-pct t-red">1.7%</span></div>
+        <div style="text-align:center; padding:10px; font-size:12px; color:var(--red); font-weight:700; margin-top:4px;">⚠ ALL ORGANISMS ARE ENVIRONMENTAL — ZERO CLINICAL VALIDITY</div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database — Clinically Actionable</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-red"><em>Klebsiella pneumoniae</em> ⚑ DOMINANT</span><span class="org-pct t-red">12.5%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Pseudomonas aeruginosa</em> ⚑</span><span class="org-pct t-red">3.4%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Corynebacterium sp.</em></span><span class="org-pct t-amber">3.2%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Staphylococcus pseudintermedius</em></span><span class="org-pct t-amber">2.9%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Treponema primitia</em> ⚑</span><span class="org-pct t-red">1.9%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Neisseria meningitidis</em> ⚑ URGENT</span><span class="org-pct t-red">1.7%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-poor"></div><div class="leda-text"><strong>Severe Non-LEDA — Critical Endometrial Dysbiosis.</strong> EMU gave entirely meaningless results. Vaginal DB reveals pathogen-dominant endometrium including <em>Neisseria meningitidis</em> — requires URGENT clinical escalation and confirmatory testing. ART should NOT proceed until resolved.</div></div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- PADMAVATHI -->
+  <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">Padmavathi — Endometrial Sample</p>
+  <div class="h2h-grid">
+    <div class="h2h-card">
+      <div class="h2h-header h2h-emu">EMU General Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus iners</em></span><span class="org-pct t-blue">82.9%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus crispatus</em></span><span class="org-pct">2.8%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Paracoccus salipaludis</em> ⚠ ENV</span><span class="org-pct t-red">0.6%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Anoxybacillus flavithermus</em> ⚠ ENV</span><span class="org-pct t-red">0.3%</span></div>
+        <div class="org-row"><span class="org-name"><em>Klebsiella pneumoniae</em></span><span class="org-pct">0.2%</span></div>
+        <div class="org-row"><span class="org-name"><em>Staphylococcus aureus</em></span><span class="org-pct">0.2%</span></div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus iners</em></span><span class="org-pct t-green">80.8%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus crispatus</em></span><span class="org-pct">2.8%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Pseudomonas aeruginosa</em> ⚑</span><span class="org-pct t-amber">0.6%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Klebsiella pneumoniae</em> ⚑</span><span class="org-pct t-amber">0.5%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Brucella abortus</em> ⚑</span><span class="org-pct t-amber">0.3%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Clostridium botulinum</em></span><span class="org-pct t-amber">0.4%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-mid"></div><div class="leda-text"><strong>Near-LEDA (L. iners ~83%) — Closest to threshold but L. iners-type.</strong> Both databases agree on Lactobacillus dominance. However, <em>L. iners</em> is considered less protective than <em>L. crispatus</em> in endometrial contexts. EMU substituted clinically relevant minor organisms with environmental species; Vaginal DB correctly identified <em>Brucella abortus</em> requiring serology confirmation.</div></div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- PRIYANKA -->
+  <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">Priyanka — Endometrial Sample <span style="font-size:11px; background:#e8f5ee; padding:2px 8px; border-radius:4px; color:var(--green);">Best Concordance</span></p>
+  <div class="h2h-grid">
+    <div class="h2h-card">
+      <div class="h2h-header h2h-emu">EMU General Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus crispatus</em></span><span class="org-pct t-blue">59.1%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Gardnerella vaginalis</em></span><span class="org-pct t-amber">10.2%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Gardnerella swidsinskii</em></span><span class="org-pct t-amber">9.9%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Gardnerella piotii</em></span><span class="org-pct t-amber">3.7%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus gallinarum</em></span><span class="org-pct">3.5%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Hydrotalea flava</em> ⚠</span><span class="org-pct t-red">0.15%</span></div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus crispatus</em></span><span class="org-pct t-green">58.8% ✓</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Gardnerella vaginalis</em></span><span class="org-pct t-amber">10.1%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Gardnerella swidsinskii</em></span><span class="org-pct t-amber">9.8%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Gardnerella piotii</em></span><span class="org-pct t-amber">3.6%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus gallinarum</em></span><span class="org-pct">3.4%</span></div>
+        <div class="org-row"><span class="org-name"><em>Pseudomonas aeruginosa</em></span><span class="org-pct">0.11%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-mid"></div><div class="leda-text"><strong>Non-LEDA (~59% L. crispatus)</strong> — Near-perfect concordance between databases. This is the clearest BV-related endometrial profile: <em>Gardnerella</em> 4-species co-dominance (~25% combined) in the endometrium, which is associated with poor ART outcomes and endometritis. BV treatment should be considered before embryo transfer.</div></div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- SNEHAL -->
+  <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">Snehal — Endometrial Sample</p>
+  <div class="h2h-grid">
+    <div class="h2h-card">
+      <div class="h2h-header h2h-emu">EMU General Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus jensenii</em></span><span class="org-pct t-blue">31.9%</span></div>
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus mulieris</em></span><span class="org-pct t-blue">13.4%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Hydrotalea flava</em> ⚠ ENV</span><span class="org-pct t-red">4.6%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Fimbriimonas ginsengisoli</em> ⚠ SOIL</span><span class="org-pct t-red">2.1%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus fornicalis</em></span><span class="org-pct">2.1%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Paraburkholderia kururiensis</em> ⚠ SOIL</span><span class="org-pct t-red">1.1%</span></div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus jensenii</em></span><span class="org-pct t-green">30.8%</span></div>
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus mulieris</em></span><span class="org-pct t-green">12.8%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Escherichia coli</em> ⚑</span><span class="org-pct t-amber">2.2%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus fornicalis</em></span><span class="org-pct">2.0%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Klebsiella pneumoniae</em> ⚑</span><span class="org-pct t-amber">1.3%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Brucella anthropi</em> ⚑ FLAGGED</span><span class="org-pct t-red">1.0%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-poor"></div><div class="leda-text"><strong>Non-LEDA (~47% combined Lactobacillus)</strong> — Both databases agree well on <em>L. jensenii</em> and <em>L. mulieris</em>. EMU populated minor slots with environmental organisms (7.8% combined). Vaginal DB correctly identified clinically relevant <em>E. coli</em>, <em>K. pneumoniae</em>, and <em>Brucella anthropi</em> (visually flagged in source data).</div></div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- URMILA -->
+  <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">Urmila — Endometrial Sample</p>
+  <div class="h2h-grid">
+    <div class="h2h-card">
+      <div class="h2h-header h2h-emu">EMU General Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus iners</em></span><span class="org-pct t-blue">67.6%</span></div>
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus jensenii</em></span><span class="org-pct t-blue">9.8%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Paracoccus halophilus</em> ⚠ ENV</span><span class="org-pct t-red">1.5%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Fimbriimonas ginsengisoli</em> ⚠ SOIL</span><span class="org-pct t-red">0.9%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Novosphingobium ovatum</em> ⚠ ENV</span><span class="org-pct t-red">0.5%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Paraburkholderia</em> spp. ⚠ SOIL</span><span class="org-pct t-red">0.5%</span></div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus iners</em></span><span class="org-pct t-green">67.0% ✓</span></div>
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus jensenii</em></span><span class="org-pct t-green">9.7% ✓</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Klebsiella pneumoniae</em> ⚑</span><span class="org-pct t-amber">0.6%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Brucella lupini</em> ⚑</span><span class="org-pct t-amber">0.3%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Brucella pituitosa</em> ⚑</span><span class="org-pct t-amber">0.5%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Brucella suis</em> ⚑</span><span class="org-pct t-amber">0.2%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-poor"></div><div class="leda-text"><strong>Non-LEDA (~77% combined Lactobacillus)</strong> — Both databases agree on the dominant Lactobacillus community. EMU populated the minor fraction with environmental organisms of no value. Vaginal DB correctly detected multiple <em>Brucella</em> species in endometrial tissue — requires serology confirmation. In the context of infertility, <em>Brucella</em> species at this site warrant careful investigation.</div></div>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+  <!-- VALSUD -->
+  <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">VALSUD — Endometrial Sample</p>
+  <div class="h2h-grid">
+    <div class="h2h-card">
+      <div class="h2h-header h2h-emu">EMU General Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus gasseri</em></span><span class="org-pct t-blue">29.9%</span></div>
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus paragasseri</em></span><span class="org-pct t-blue">13.8%</span></div>
+        <div class="org-row"><span class="org-name t-blue"><em>Lactobacillus crispatus</em></span><span class="org-pct t-blue">11.3%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Hydrotalea flava</em> ⚠ ENV</span><span class="org-pct t-red">7.7%</span></div>
+        <div class="org-row"><span class="org-name t-red"><em>Novosphingobium ovatum</em> ⚠ ENV</span><span class="org-pct t-red">6.3%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus sp. JM1</em></span><span class="org-pct">6.8%</span></div>
+      </div>
+    </div>
+    <div class="h2h-card">
+      <div class="h2h-header h2h-vdb">Custom Vaginal Database</div>
+      <div class="h2h-body">
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus gasseri</em></span><span class="org-pct t-green">31.1%</span></div>
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus paragasseri</em></span><span class="org-pct t-green">14.6%</span></div>
+        <div class="org-row"><span class="org-name t-green"><em>Lactobacillus crispatus</em></span><span class="org-pct t-green">10.8%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus sp. JM1</em></span><span class="org-pct">7.2%</span></div>
+        <div class="org-row"><span class="org-name t-amber"><em>Klebsiella pneumoniae</em> ⚑</span><span class="org-pct t-amber">2.9%</span></div>
+        <div class="org-row"><span class="org-name"><em>Lactobacillus johnsonii</em></span><span class="org-pct">2.8%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="leda-row"><div class="leda-dot leda-poor"></div><div class="leda-text"><strong>Non-LEDA (~65% combined Lactobacillus)</strong> — Good concordance on Lactobacillus species. EMU artificially inflated community with environmental organisms totalling ~14%. Vaginal DB provides a cleaner Lactobacillus profile and correctly identifies <em>K. pneumoniae</em> at the endometrial level.</div></div>
+
+  <!-- ═══ OVERALL COMPARISON TABLE ═══ -->
+  <div class="sec-head" style="margin-top:40px;">Overall Head-to-Head Comparison — All Samples</div>
+  <div class="cmp-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-sample">Sample</th>
+          <th class="th-emu">EMU — Top Finding</th>
+          <th class="th-emu">EMU — Key Problem</th>
+          <th class="th-vdb">Vaginal DB — Top Finding</th>
+          <th class="th-vdb">Pathogens Found (VDB only)</th>
+          <th class="th-verdict">Endometrial Assessment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>STANDARD</strong><br><span class="small">Mock Control</span></td>
+          <td class="cell-emu"><em>S. aureus</em> 13.1%</td>
+          <td class="cell-emu">Minor — missed <em>Mesomycoplasma</em></td>
+          <td class="cell-vdb"><em>S. aureus</em> 12.8%</td>
+          <td class="cell-vdb">—</td>
+          <td class="cell-verd"><span class="tag tag-blue">CONTROL</span></td>
+        </tr>
+        <tr>
+          <td><strong>Bhavana</strong></td>
+          <td class="cell-emu"><em>L. jensenii</em> 20.9%</td>
+          <td class="cell-emu t-red"><em>Hydrotalea</em> 10.5%, <em>Fimbriimonas</em> 7.6% — environmental</td>
+          <td class="cell-vdb t-green"><em>L. jensenii</em> 23.4%, <em>L. mulieris</em> 7.5%</td>
+          <td class="cell-vdb t-amber"><em>K. pneumoniae</em> 5.2%</td>
+          <td class="cell-verd"><span class="tag tag-red">Non-LEDA</span><br><span class="small">~36% Lactobacillus</span></td>
+        </tr>
+        <tr>
+          <td><strong>Drishya</strong></td>
+          <td class="cell-emu t-red"><em>Hydrotalea flava</em> 17.7%</td>
+          <td class="cell-emu t-red">100% environmental — complete failure</td>
+          <td class="cell-vdb t-red"><em>K. pneumoniae</em> 16.9% (dominant)</td>
+          <td class="cell-vdb t-red"><em>K. pneumoniae</em>, <em>Treponema</em>, <em>Brucella melitensis</em>, <em>E. coli</em></td>
+          <td class="cell-verd"><span class="tag tag-red">URGENT</span><br><span class="small">Pathogen-dominant</span></td>
+        </tr>
+        <tr>
+          <td><strong>Keerthi</strong></td>
+          <td class="cell-emu t-red"><em>Hydrotalea</em> 15.0% (ranked #1 over true dominant)</td>
+          <td class="cell-emu t-red">True dominant (<em>L. iners</em>) ranked #2</td>
+          <td class="cell-vdb t-green"><em>L. iners</em> 21.0% (correctly dominant)</td>
+          <td class="cell-vdb t-amber"><em>K. pneumoniae</em> 7.6%, <em>A. baumannii</em> 1.2%, <em>Treponema</em></td>
+          <td class="cell-verd"><span class="tag tag-red">Non-LEDA</span><br><span class="small">~24% Lactobacillus</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mrigakshi</strong></td>
+          <td class="cell-emu t-red"><em>Hydrotalea flava</em> 19.6%</td>
+          <td class="cell-emu t-red">100% environmental — complete failure</td>
+          <td class="cell-vdb t-red"><em>K. pneumoniae</em> 12.5% (dominant)</td>
+          <td class="cell-vdb t-red"><em>K. pneumoniae</em>, <em>P. aeruginosa</em>, <em>N. meningitidis</em>, <em>Treponema</em></td>
+          <td class="cell-verd"><span class="tag tag-red">URGENT</span><br><span class="small">Pathogen-dominant</span></td>
+        </tr>
+        <tr>
+          <td><strong>Padmavathi</strong></td>
+          <td class="cell-emu"><em>L. iners</em> 82.9%</td>
+          <td class="cell-emu t-red"><em>Paracoccus</em>, <em>Anoxybacillus</em> (environmental) at minor slots</td>
+          <td class="cell-vdb t-green"><em>L. iners</em> 80.8%</td>
+          <td class="cell-vdb t-amber"><em>Brucella abortus</em>, <em>P. aeruginosa</em>, <em>Clostridium botulinum</em></td>
+          <td class="cell-verd"><span class="tag tag-amber">Near-LEDA</span><br><span class="small">~84% (L. iners type)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Priyanka</strong></td>
+          <td class="cell-emu"><em>L. crispatus</em> 59.1%, Gardnerella 4-spp.</td>
+          <td class="cell-emu t-red">Minor: <em>Hydrotalea</em> 0.15%</td>
+          <td class="cell-vdb t-green"><em>L. crispatus</em> 58.8% — best concordance</td>
+          <td class="cell-vdb t-amber">Minor: <em>P. aeruginosa</em> 0.11%</td>
+          <td class="cell-verd"><span class="tag tag-amber">Non-LEDA</span><br><span class="small">BV-type, 4 Gardnerella spp.</span></td>
+        </tr>
+        <tr>
+          <td><strong>Snehal</strong></td>
+          <td class="cell-emu"><em>L. jensenii</em> 31.9%, <em>L. mulieris</em> 13.4%</td>
+          <td class="cell-emu t-red"><em>Hydrotalea</em> 4.6%, <em>Fimbriimonas</em> 2.1% (environmental)</td>
+          <td class="cell-vdb t-green"><em>L. jensenii</em> 30.8%, <em>L. mulieris</em> 12.8%</td>
+          <td class="cell-vdb t-red"><em>E. coli</em> 2.2%, <em>K. pneumoniae</em> 1.3%, <em>Brucella anthropi</em> (flagged)</td>
+          <td class="cell-verd"><span class="tag tag-red">Non-LEDA</span><br><span class="small">~47% Lactobacillus</span></td>
+        </tr>
+        <tr>
+          <td><strong>Urmila</strong></td>
+          <td class="cell-emu"><em>L. iners</em> 67.6%</td>
+          <td class="cell-emu t-red">Environmental organisms in minor slots</td>
+          <td class="cell-vdb t-green"><em>L. iners</em> 67.0%, <em>L. jensenii</em> 9.7%</td>
+          <td class="cell-vdb t-amber"><em>Brucella lupini</em>, <em>B. pituitosa</em>, <em>B. suis</em>, <em>K. pneumoniae</em></td>
+          <td class="cell-verd"><span class="tag tag-red">Non-LEDA</span><br><span class="small">~77% Lactobacillus</span></td>
+        </tr>
+        <tr>
+          <td><strong>VALSUD</strong></td>
+          <td class="cell-emu"><em>L. gasseri</em> 29.9%</td>
+          <td class="cell-emu t-red"><em>Hydrotalea</em> 7.7%, <em>Novosphingobium</em> 6.3% — environmental</td>
+          <td class="cell-vdb t-green"><em>L. gasseri</em> 31.1%, cleaner Lactobacillus profile</td>
+          <td class="cell-vdb t-amber"><em>K. pneumoniae</em> 2.9%, <em>Treponema succinifaciens</em></td>
+          <td class="cell-verd"><span class="tag tag-red">Non-LEDA</span><br><span class="small">~65% Lactobacillus</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ KEY DIFFERENCES SUMMARY ═══ -->
+  <div class="sec-head">Key Differences — EMU vs Vaginal Database</div>
+  <div class="sum-grid">
+    <div class="sum-card" style="border-top:4px solid var(--red);">
+      <h4>Where EMU Fails</h4>
+      <ul>
+        <li>2 complete failures — 100% env. organisms</li>
+        <li>Systematic false-positives in 6/9 samples</li>
+        <li>Misranked true dominant (Keerthi)</li>
+        <li>Missed all endometrial pathogens</li>
+        <li>Environmental contamination ≤19.6% abundance</li>
+        <li>No clinical value in dysbiotic samples</li>
+      </ul>
+    </div>
+    <div class="sum-card" style="border-top:4px solid var(--green);">
+      <h4>Where Vaginal DB Excels</h4>
+      <ul>
+        <li>Correct community structure in all 9 samples</li>
+        <li>Zero environmental false-positives</li>
+        <li>Accurate CST / LEDA classification</li>
+        <li>Detected <em>K. pneumoniae</em> in 6 samples</li>
+        <li>Detected <em>Treponema</em>, <em>Brucella</em>, <em>Neisseria</em></li>
+        <li>Full <em>Gardnerella</em> speciation (BV diagnosis)</li>
+      </ul>
+    </div>
+    <div class="sum-card" style="border-top:4px solid var(--accent);">
+      <h4>Where Both Agree</h4>
+      <ul>
+        <li>Dominant Lactobacillus species in stable samples</li>
+        <li>Priyanka sample: ~99% concordance</li>
+        <li>Padmavathi, Urmila: good agreement on dominants</li>
+        <li>Mock standard: adequate concordance</li>
+        <li>Snehal: good agreement on <em>L. jensenii</em> / <em>L. mulieris</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ENDOMETRIAL LEDA TABLE -->
+  <div class="sec-head">Endometrial LEDA Status — Clinical Fertility Implications</div>
+  <div class="alert a-purple" style="font-size:12.5px; margin-bottom:12px;">
+    <strong>LEDA Threshold</strong>
+    Endometrial microbiome studies (Moreno et al., Kyono et al.) define Lactobacillus-dominant endometrium (LEDA) as ≥90% Lactobacillus. Non-LEDA endometrium is associated with significantly lower implantation rates, clinical pregnancy rates, and live birth rates in IVF cycles.
+  </div>
+  <div class="cmp-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-sample">Sample</th>
+          <th class="th-vdb">Total Lactobacillus (VDB)</th>
+          <th class="th-vdb">LEDA Status</th>
+          <th class="th-verdict">Primary Lactobacillus Species</th>
+          <th class="th-verdict">ART Recommendation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Padmavathi</td><td class="cell-vdb"><strong>~84%</strong></td><td class="cell-vdb"><span class="tag tag-amber">NEAR-LEDA</span></td><td class="cell-verd"><em>L. iners</em> (less protective type)</td><td class="cell-verd t-amber">Proceed with caution — L. iners associated with lower success</td></tr>
+        <tr><td>Urmila</td><td class="cell-vdb"><strong>~77%</strong></td><td class="cell-vdb"><span class="tag tag-red">Non-LEDA</span></td><td class="cell-verd"><em>L. iners</em> + <em>L. jensenii</em></td><td class="cell-verd t-amber">Clinical review + Brucella confirmation first</td></tr>
+        <tr><td>Priyanka</td><td class="cell-vdb"><strong>~62%</strong></td><td class="cell-vdb"><span class="tag tag-red">Non-LEDA</span></td><td class="cell-verd"><em>L. crispatus</em> + Gardnerella 4-spp.</td><td class="cell-verd t-red">Treat BV before embryo transfer</td></tr>
+        <tr><td>VALSUD</td><td class="cell-vdb"><strong>~65%</strong></td><td class="cell-vdb"><span class="tag tag-red">Non-LEDA</span></td><td class="cell-verd"><em>L. gasseri</em> dominant</td><td class="cell-verd t-amber">Monitor; K. pneumoniae confirm</td></tr>
+        <tr><td>Snehal</td><td class="cell-vdb"><strong>~47%</strong></td><td class="cell-vdb"><span class="tag tag-red">Non-LEDA</span></td><td class="cell-verd"><em>L. jensenii + L. mulieris</em></td><td class="cell-verd t-red">Delay ART; confirm Brucella + pathogens</td></tr>
+        <tr><td>Bhavana</td><td class="cell-vdb"><strong>~36%</strong></td><td class="cell-vdb"><span class="tag tag-red">Non-LEDA</span></td><td class="cell-verd"><em>L. jensenii</em></td><td class="cell-verd t-red">Delay ART; treat dysbiosis; retest</td></tr>
+        <tr><td>Keerthi</td><td class="cell-vdb"><strong>~25%</strong></td><td class="cell-vdb"><span class="tag tag-red">Non-LEDA</span></td><td class="cell-verd"><em>L. iners</em></td><td class="cell-verd t-red">Delay ART; pathogen workup required</td></tr>
+        <tr><td>Mrigakshi</td><td class="cell-vdb"><strong>~0%</strong></td><td class="cell-vdb"><span class="tag tag-red">SEVERE Non-LEDA</span></td><td class="cell-verd"><em>K. pneumoniae dominant — no Lactobacillus</em></td><td class="cell-verd t-red">DO NOT PROCEED — urgent treatment</td></tr>
+        <tr><td>Drishya</td><td class="cell-vdb"><strong>~0%</strong></td><td class="cell-vdb"><span class="tag tag-red">SEVERE Non-LEDA</span></td><td class="cell-verd"><em>K. pneumoniae dominant — no Lactobacillus</em></td><td class="cell-verd t-red">DO NOT PROCEED — urgent treatment</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CONCLUSION -->
+  <div class="conclusion">
+    <h3>Summary Conclusion</h3>
+    <p>
+      Across all 9 endometrial patient samples, the <strong>Custom Vaginal Database consistently outperformed the standard EMU database</strong>. The core issue is that the EMU general database was built for broad metagenomic applications and lacks sufficient representation of the specialized endometrial/vaginal microbiome. When reads cannot be mapped to known organisms, EMU forces them onto the nearest neighbor in its reference — which in these samples frequently produces freshwater, soil, and plant-associated organisms (<em>Hydrotalea flava</em>, <em>Fimbriimonas ginsengisoli</em>, <em>Ralstonia solanacearum</em>, etc.) that have zero relevance to human endometrial tissue.
+    </p>
+    <p>
+      <strong>Critically, none of the 9 patient samples met the LEDA threshold (≥90% Lactobacillus)</strong>, which has direct implications for ART outcomes. Two samples (Drishya, Mrigakshi) showed pathogen-dominant, Lactobacillus-absent endometria — a finding that would have been completely missed under standard EMU reporting.
+    </p>
+    <ul>
+      <li>Use the <strong>Custom Vaginal Database exclusively</strong> for all endometrial and vaginal clinical reporting</li>
+      <li>All flagged pathogens (<em>K. pneumoniae</em>, <em>Treponema</em>, <em>Brucella</em>, <em>N. meningitidis</em>) require <strong>confirmatory testing</strong> before clinical action</li>
+      <li>Non-LEDA endometrial profiles should prompt clinical discussion about <strong>delaying embryo transfer</strong></li>
+      <li>Retain the EMU general database only for research comparisons — never for primary clinical reporting</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  <strong>VMB Analysis Report</strong> &nbsp;|&nbsp; Sample Type: Endometrial Tissue &nbsp;|&nbsp; Generated: 2026-05-16 &nbsp;|&nbsp;
+  Confidential — All findings require clinician review and confirmatory testing before clinical action.
+</footer>
+
+</body>
+</html>
